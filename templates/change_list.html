@@ -1,0 +1,44 @@
+{% extends "admin/change_list.html" %}
+
+{% block result_list %}
+    <table id="result_list" class="table">
+        <thead>
+            <tr>
+                <th scope="col" class="sortable column-id"><div class="text">ID</div></th>
+                <th scope="col" class="sortable column-user"><div class="text">User</div></th>
+                <th scope="col" class="sortable column-tx_amount"><div class="text">TX Amount</div></th>
+                <th scope="col" class="sortable column-payment_mode"><div class="text">Payment Mode</div></th>
+                <th scope="col" class="sortable column-address"><div class="text">Address</div></th>
+                <th scope="col" class="sortable column-tx_id"><div class="text">TX ID</div></th>
+                <th scope="col" class="sortable column-tx_time"><div class="text">TX Time</div></th>
+                <th scope="col" class="sortable column-tx_msg"><div class="text">TX Msg</div></th>
+                <th scope="col" class="column-status"><div class="text">Status</div></th>
+                <th scope="col" class="sortable column-from_cart"><div class="text">From Cart</div></th>
+                <th scope="col" class="sortable column-created_at"><div class="text">Created At</div></th>
+                <th scope="col" class="sortable column-updated_at"><div class="text">Updated At</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+                <tr class="{% cycle 'row1' 'row2' %}">
+                    <td class="field-id">{{ result.id }}</td>
+                    <td class="field-user">{{ result.user }}</td>
+                    <td class="field-tx_amount">{{ result.tx_amount }}</td>
+                    <td class="field-payment_mode">{{ result.payment_mode }}</td>
+                    <td class="field-address">{{ result.address }}</td>
+                    <td class="field-tx_id">{{ result.tx_id }}</td>
+                    <td class="field-tx_time">{{ result.tx_time }}</td>
+                    <td class="field-tx_msg">{{ result.tx_msg }}</td>
+                    <td class="field-status">{{ result.status_badge }}</td>
+                    <td class="field-from_cart">{{ result.from_cart }}</td>
+                    <td class="field-created_at">{{ result.created_at }}</td>
+                    <td class="field-updated_at">{{ result.updated_at }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="13" class="empty-results">{% trans "No orders available." %}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

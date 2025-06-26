@@ -1,0 +1,54 @@
+{% extends "admin/base_site.html" %}
+{% load static i18n admin_urls %}
+
+{% block content %}
+<!-- ... other content ... -->
+
+{% for app in app_list %}
+  <div class="app-{{ app.app_label }} module">
+    <table>
+      {% for model in app.models %}
+        <tr class="model-{{ model.object_name|lower }}">
+          {% if model.object_name == 'Order' %}
+            <td>
+              <a href="{{ model.admin_url }}">{{ model.name }}</a>
+              <span class="badge">{{ model.get_new_orders_count }}</span> <!-- This line adds the badge -->
+            </td>
+          {% else %}
+            <td>
+              <a href="{{ model.admin_url }}">{{ model.name }}</a>
+            </td>
+          {% endif %}
+          <td>
+            {% if model.add_url %}
+              <a href="{{ model.add_url }}" class="addlink">{% translate "Add" %}</a>
+            {% endif %}
+            {% if model.admin_url %}
+              <a href="{{ model.admin_url }}" class="changelink">{% translate "Change" %}</a>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endfor %}
+
+<!-- ... other content ... -->
+{% endblock %}
+ <style>
+/* ... other styles ... */
+
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.375rem;
+  background-color: #44c767;
+  color: white;
+}
+</style>

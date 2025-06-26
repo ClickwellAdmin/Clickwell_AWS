@@ -1,0 +1,48 @@
+{% extends 'admin/change_form.html' %}
+
+{% load static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+  #drop-zone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+  }
+</style>
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const dropZone = document.getElementById('drop-zone');
+    const imageInputs = document.querySelectorAll('#productimage_inline_formset input[type="file"]');
+
+    dropZone.addEventListener('dragover', function(e) {
+      e.preventDefault();
+    });
+
+    dropZone.addEventListener('drop', function(e) {
+      e.preventDefault();
+      const files = e.dataTransfer.files;
+
+      for (const input of imageInputs) {
+        input.files = files;
+      }
+    });
+
+    for (const input of imageInputs) {
+      input.style.display = 'none';
+      input.insertAdjacentHTML('beforebegin', '<div id="drop-zone">Drag and Drop Images Here</div>');
+    }
+  });
+</script>
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+{% endblock %}
